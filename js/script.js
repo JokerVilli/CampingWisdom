@@ -108,9 +108,24 @@ function typePromise(i, t, ie, oe) {
     wrapper(i);
   });
 }
+function fade(element) {
+  var op = 1;  // initial opacity
+  var timer = setInterval(function () {
+      if (op <= 0.1){
+          clearInterval(timer);
+          element.style.display = 'none';
+          unfade(reload);
+          reload.onclick = () => window.location.reload();
+      }
+      element.style.opacity = op;
+      element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+      op -= op * 0.1;
+  }, 50);
+}
+
 function unfade(element) {
   let op = 0.1; // initial opacity
-  element.style.display = "block";
+  element.style.display = "flex";
   let timer = setInterval(function () {
     if (op >= 1) {
       clearInterval(timer);
@@ -126,6 +141,8 @@ const connCircle = document.querySelector(".connecting-circle");
 const title = document.querySelector("#title");
 const subtitle = document.querySelector("#subtitle");
 const bg = document.querySelector(".bg");
+const textContainer = document.querySelector(".text-container");
+const reload = document.querySelector(".reload");
 bg.style.backgroundImage = `linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('images/f${getRandomInt(1,5)}.jpg')`;
 
 const baseAngel = getRandomInt(0, circleAngle);
@@ -149,6 +166,11 @@ for (let i = 0; i < circlesCount; i++) {
 
     await typePromise(0, typingSpeed, randowmTitle, title);
     await typePromise(0, typingSpeed, randowmSubtitle, subtitle);
+    if (clickedCircles === circlesCount) {
+      setTimeout(() => {
+        fade(textContainer)
+      }, 1000)      
+    };
   };
   circle.style.backgroundImage = `url('images/${i + 1}.jpg')`;
   container.appendChild(circle);
