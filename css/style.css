@@ -1,0 +1,84 @@
+:root {
+    --borderColor: gold;
+}
+body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;            
+}
+.bg {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("images/f4.jpg"); */
+    background-size: cover;
+    background-origin: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.container {
+    position: relative;
+    border-radius: 50vmin;
+    width: 100vmin;
+    height: 100vmin;
+    transition: transform 1s ease-out; /* Добавили анимацию вращения */
+    z-index: 10;
+}
+.connecting-circle {
+    position: absolute;
+    border-radius: 40vmin;
+    width: 80vmin;
+    height: 80vmin;
+    box-shadow: inset 0 0 17px var(--borderColor), 0 0 17px var(--borderColor);
+    z-index: 1;
+    opacity: 0;
+    outline: 1px solid var(--borderColor);
+}
+.text-container {
+    position: absolute;
+    width: 55vmin;
+    height: 55vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+    color: white;
+    font-family: Rubik, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 2vmin;
+    text-align: center;
+    text-shadow: 0 0 6px var(--borderColor);
+}
+.circle {
+    position: absolute;
+    width: 20vmin;
+    height: 20vmin;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 1s ease-out;
+    background-size: contain;
+    cursor: pointer;
+    box-shadow: none;
+    z-index: 100;
+    outline: 2px solid var(--borderColor);
+    opacity: 0.4;
+}
+.circle:hover {
+    box-shadow: 0 0 23px var(--borderColor);
+    opacity: 1;
+}
+.text-container > div:first-child {
+    font-size: 150%;
+}
+#zd {
+    display: none;
+}
