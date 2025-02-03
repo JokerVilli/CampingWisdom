@@ -72,7 +72,7 @@ const quotes = {
 };
 
 savedQuotes = [];
-const typingSpeed = 10;
+const typingSpeed = 50;
 const circlesCount = 5;
 const circleAngle = 360;
 let clickedCircles = 0;
@@ -169,7 +169,7 @@ for (let i = 0; i < circlesCount; i++) {
     if (clickedCircles === circlesCount) {
       setTimeout(() => {
         fade(textContainer)
-      }, 1000)      
+      }, 2000)      
     };
   };
   circle.style.backgroundImage = `url('images/${i + 1}.jpg')`;
