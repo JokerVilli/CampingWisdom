@@ -146,6 +146,7 @@ const typingSpeed = 50;
 const circlesCount = 5;
 const circleAngle = 360;
 let clickedCircles = 0;
+let controller = null; 
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -165,12 +166,23 @@ function getTitle(savedQuotes) {
     randowmSubtitle,
   };
 }
-function typePromise(i, t, ie, oe) {
+function typePromise(i, t, ie, oe, signal) {
   return new Promise((resolve) => {
+    let timeoutId = null;
+    
+    // Обработчик отмены
+    if (signal) {
+      signal.addEventListener('abort', () => {
+        clearTimeout(timeoutId);
+        resolve(); // Немедленно завершаем Promise
+      });
+    }
+
     function wrapper(i) {
+      if (signal?.aborted) return; // Проверяем отмену
       oe.innerHTML += ie.charAt(i);
       if (i < ie.length - 1) {
-        setTimeout(() => wrapper(i + 1), t);
+        timeoutId = setTimeout(() => wrapper(i + 1), t);
       } else {
         resolve();
       }
@@ -234,8 +246,17 @@ for (let i = 0; i < circlesCount; i++) {
     subtitle.innerHTML = "";
     const { randowmTitle, randowmSubtitle } = getTitle(savedQuotes);
 
-    await typePromise(0, typingSpeed, randowmTitle, title);
-    await typePromise(0, typingSpeed, randowmSubtitle, subtitle);
+      // Отменяем предыдущую анимацию
+    if (controller) {
+      controller.abort();
+    }
+    
+    // Создаем новый контроллер
+    controller = new AbortController();
+    const signal = controller.signal;
+
+    await typePromise(0, typingSpeed, randowmTitle, title, signal);
+    await typePromise(0, typingSpeed, randowmSubtitle, subtitle, signal);
     if (clickedCircles === circlesCount) {
       setTimeout(() => {
         fade(textContainer)
