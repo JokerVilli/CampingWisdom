@@ -53,11 +53,11 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 40px;
+    gap: 3vmin;
     color: white;
     font-family: Rubik, Arial, Helvetica, sans-serif;
     font-weight: bold;
-    font-size: 2vmin;
+    font-size: 4vmin;
     text-align: center;
     text-shadow: 0 0 6px var(--borderColor);
 }
